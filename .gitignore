@@ -1,0 +1,25 @@
+# ── Sistema operacional ────────────────
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ── Arquivos temporários ───────────────
+~$*
+*.tmp
+
+# ── Power BI ───────────────────────────
+*.pbix.bak
+.pbi/localSettings.json
+.pbi/cache.abf
+
+# ── Dados ──────────────────────────────
+# Dataset não versionado: baixar do Kaggle conforme README
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# ── Credenciais ────────────────────────
+*.env
+credentials.json
+config.local.*
