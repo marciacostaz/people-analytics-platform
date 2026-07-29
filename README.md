@@ -73,6 +73,14 @@ Para reproduzir: baixe os arquivos no Kaggle e coloque em `data/raw/`.
 O motivo de não versionar está em [`docs/decisoes.md`](docs/decisoes.md).
 
 ## Estrutura
+- `data/raw/` — dados originais, intocados
+- `data/processed/` — saída do ETL
+- `etl/` — transformações em Power Query (M)
+- `dax/` — medidas versionadas em texto
+- `powerbi/` — arquivos do relatório
+- `docs/` — documentação e decisões
+- `assets/` — imagens e capturas de tela
+
 A separação entre `raw` e `processed` existe para manter
 rastreabilidade: dá para refazer o caminho de qualquer número até
 a origem.
