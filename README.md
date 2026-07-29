@@ -84,7 +84,8 @@ Scrumban: sprints de uma semana, fluxo contínuo, uma tarefa em andamento por ve
 
 O board é a fonte de verdade sobre o andamento; não replico status aqui para não manter duas versões da mesma informação.
 
-📋 [Board do projeto] -  https://github.com/users/marciacostaz/projects/1/views/1
+📋 [Board do projeto](https://github.com/users/marciacostaz/projects/1/views/1)
+
 *Processo simplificado por ser um projeto individual. Em time, a coluna "In Review" corresponderia à revisão de Pull Request.*
 
 ## Autoria
