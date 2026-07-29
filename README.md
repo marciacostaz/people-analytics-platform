@@ -51,7 +51,7 @@ O `snapshots` é o coração do projeto: é dado em painel, permite olhar trajet
 
 > **Nota sobre o `risk_of_exit_score`:** a coluna já vem pronta na base original, calculada por snapshot — ou seja, cada pessoa tem um score diferente a cada mês, não um valor fixo de cadastro. Por isso ela vive em `snapshots_updated.csv`, não em `employees_updated.csv`. O projeto não constrói esse score: ele o **valida**, cruzando os valores dos meses anteriores com quem de fato saiu depois.
 
-**Fonte:** [Sample HR Dataset — High Growth SaaS Simulation](https://www.kaggle.com) (Kaggle)
+**Fonte:** [Sample HR Dataset — High Growth SaaS Simulation]([https://www.kaggle.com](https://www.kaggle.com/datasets/vicako/sample-hr-dataset-highgrowth-saas-simulation)) (Kaggle)
 **Licença:** MIT — uso, cópia e redistribuição livres
 **Natureza:** dados fictícios, sem pessoas reais
 
