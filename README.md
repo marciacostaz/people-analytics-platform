@@ -90,4 +90,4 @@ O board é a fonte de verdade sobre o andamento; não replico status aqui para n
 ## Autoria
 
 **Marcia Costa**
-[LinkedIn](#) · [GitHub](#) *— [inserir links reais]*
+[LinkedIn](https://www.linkedin.com/in/marciacostasp/) • [GitHub](https://github.com/marciacostaz/people-analytics-platform)
