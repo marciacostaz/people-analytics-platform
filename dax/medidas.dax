@@ -1,0 +1,149 @@
+// =============================================================
+// People Analytics Platform — Medidas DAX
+// Modelo: dEmployees, fSnapshots, fLeave, dCalendario
+// Todas as medidas residem na tabela _Medidas
+// Ordem alfabética
+// =============================================================
+
+
+// Denominador é Total Pessoas (793): a flag existe para todo o cadastro
+// Formato: porcentagem, 1 casa decimal
+// Valor esperado sem filtro: 11,3%
+% Alto Potencial = DIVIDE([Alto Potencial], [Total Pessoas])
+
+
+// Denominador é Pessoas Observadas (755), não Total Pessoas (793)
+// Formato: porcentagem, 1 casa decimal
+// Valor esperado sem filtro: 23,3%
+% Promovidos = DIVIDE([Promovidos], [Pessoas Observadas])
+
+
+// Formato: porcentagem, 1 casa decimal
+// Valor esperado sem filtro: 37,8% (300 de 793 pessoas)
+% Sem Treinamento = DIVIDE([Pessoas Sem Treinamento], [Total Pessoas])
+
+
+// Usa o relacionamento inativo dCalendario[Date] -> dEmployees[hire_date]
+Admissoes = 
+CALCULATE(
+    DISTINCTCOUNT(dEmployees[employee_id]),
+    USERELATIONSHIP(dCalendario[Date], dEmployees[hire_date])
+)
+
+
+// Valor esperado sem filtro: 90
+Alto Potencial = 
+CALCULATE(
+    DISTINCTCOUNT(dEmployees[employee_id]),
+    dEmployees[high_potential_flag] = TRUE
+)
+
+
+// Absenteísmo real: conta apenas ausências que de fato ocorreram.
+// Pedido feito é diferente de ausência ocorrida — por isso o duplo filtro.
+// Valor esperado sem filtro: 208
+Atestados = 
+CALCULATE(
+    COUNTROWS(fLeave),
+    fLeave[leave_type] = "Sick",
+    fLeave[approval_status] = "Approved"
+)
+
+
+Ausencias Aprovadas = 
+CALCULATE(
+    COUNTROWS(fLeave),
+    fLeave[approval_status] = "Approved"
+)
+
+
+Custo Medio por FTE = DIVIDE([Folha Mensal], [FTE Total])
+
+
+Desligamentos = 
+CALCULATE(
+    DISTINCTCOUNT(dEmployees[employee_id]),
+    dEmployees[employment_status] = "Terminated"
+)
+
+
+Engajamento Medio = AVERAGE(fSnapshots[engagement_score])
+
+
+FTE Total = SUM(fSnapshots[fte])
+
+
+// Atenção: soma todos os meses do contexto.
+// Sem filtro de período retorna o acumulado dos 48 meses (~1,8 Bi),
+// não a folha de um mês. Usar sempre com quebra ou filtro temporal.
+Folha Mensal = SUM(fSnapshots[current_salary])
+
+
+// Folha do último mês disponível, independente de filtro
+Folha Ultimo Mes = 
+CALCULATE(
+    [Folha Mensal],
+    fSnapshots[snapshot_date] = MAX(fSnapshots[snapshot_date])
+)
+
+
+Gap Headcount FTE = [Headcount] - [FTE Total]
+
+
+Headcount = DISTINCTCOUNT(fSnapshots[employee_id])
+
+
+// Valor esperado sem filtro: 902
+Pedidos de Ausencia = COUNTROWS(fLeave)
+
+
+// Valor esperado sem filtro: 64
+Pedidos Negados = 
+CALCULATE(
+    COUNTROWS(fLeave),
+    fLeave[approval_status] = "Denied"
+)
+
+
+Performance Media = AVERAGE(fSnapshots[performance_rating])
+
+
+// Base correta para análise de promoção: apenas quem aparece em
+// algum snapshot. As 38 pessoas restantes do cadastro saíram antes
+// de abril/2021 e nunca foram observadas.
+// Valor esperado sem filtro: 755
+Pessoas Observadas = DISTINCTCOUNT(fSnapshots[employee_id])
+
+
+Pessoas Sem Treinamento = 
+CALCULATE(
+    DISTINCTCOUNT(dEmployees[employee_id]),
+    dEmployees[training_count] = 0
+)
+
+
+// Valor esperado sem filtro: 176
+Promovidos = 
+CALCULATE(
+    DISTINCTCOUNT(dEmployees[employee_id]),
+    dEmployees[foi_promovido] = TRUE
+)
+
+
+Risco Medio = AVERAGE(fSnapshots[risk_of_exit_score])
+
+
+Salario Medio = AVERAGE(fSnapshots[current_salary])
+
+
+// Formato: porcentagem, 1 casa decimal
+// Valor esperado sem filtro: 7,1%
+Taxa de Negativa = DIVIDE([Pedidos Negados], [Pedidos de Ausencia])
+
+
+// Formato: porcentagem, 1 casa decimal
+// Valor esperado sem filtro: 32,2%
+Taxa Turnover = DIVIDE([Desligamentos], [Total Pessoas])
+
+
+Total Pessoas = DISTINCTCOUNT(dEmployees[employee_id])
