@@ -43,7 +43,6 @@ let
         {"fte", type number}
     }, "en-US"),
     #"Mesclado" = Table.NestedJoin(#"Tipos Decimais", {"employee_id"}, auxPromocao, {"employee_id"}, "aux", JoinKind.LeftOuter),
-    #"Expandido" = Table.ExpandTableColumn(#"Mesclado", "aux", {"foi_promovido", "degraus_promocao"}, {"foi_promovido", "degraus_promocao"}),
-    #"Linhas Filtradas" = Table.SelectRows(Expandido, each ([foi_promovido] = true))
+    #"Expandido" = Table.ExpandTableColumn(#"Mesclado", "aux", {"foi_promovido", "degraus_promocao"}, {"foi_promovido", "degraus_promocao"})
 in
-    #"Linhas Filtradas"
+    #"Expandido"
